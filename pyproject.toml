@@ -1,0 +1,15 @@
+[tool.pdm]
+
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "Taras Nytiaha", email = "taras.nytiaha@gmail.com"},
+]
+dependencies = [
+    "django>=4.2.1",
+    "aiogram==3.0.0b7",
+]
+requires-python = ">=3.11"
+license = {text = "MIT"}
