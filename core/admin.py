@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import StopWord
 
-# Register your models here.
+
+class AdminWord(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(StopWord, AdminWord)
