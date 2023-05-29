@@ -15,6 +15,19 @@ class CoreTelegramUser:
             username=username,
         )
 
+    # TODO need refactor
+    @staticmethod
+    async def on(user_id: int, chat_id: int):
+        return await TelegramUser.objects.afilter(
+            user_id=user_id, chat_id=chat_id
+        ).aupdate(active=True)
+
+    @staticmethod
+    async def off(user_id: int, chat_id: int):
+        return await TelegramUser.objects.afilter(
+            user_id=user_id, chat_id=chat_id
+        ).aupdate(active=False)
+
 
 class CoreAdvert:
     @staticmethod
