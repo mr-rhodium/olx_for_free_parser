@@ -5,9 +5,14 @@ name = ""
 version = ""
 description = ""
 authors = [{ name = "Taras Nytiaha", email = "taras.nytiaha@gmail.com" }]
-dependencies = ["django>=4.2.1", "aiogram==3.0.0b7"]
+dependencies = ["django>=4.2.1", "aiogram==3.0.0b7", "httpx>=0.24.1"]
 requires-python = ">=3.11"
 license = { text = "MIT" }
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=23.3.0",
+]
 
 [tool.pdm.scripts]
 runserver = "manage.py runserver 5000 "
