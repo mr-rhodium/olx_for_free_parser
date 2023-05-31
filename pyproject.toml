@@ -5,16 +5,20 @@ name = ""
 version = ""
 description = ""
 authors = [{ name = "Taras Nytiaha", email = "taras.nytiaha@gmail.com" }]
-dependencies = ["django>=4.2.1", "aiogram==3.0.0b7", "httpx>=0.24.1"]
+dependencies = [
+    "django>=4.2.1",
+    "aiogram==3.0.0b7",
+    "httpx>=0.24.1",
+    "django-stubs>=4.2.0",
+]
 requires-python = ">=3.11"
 license = { text = "MIT" }
 
 [tool.pdm.dev-dependencies]
-dev = [
-    "black>=23.3.0",
-]
+dev = ["black>=23.3.0"]
 
 [tool.pdm.scripts]
 runserver = "manage.py runserver 5000 "
 migrate = "manage.py migrate"
 makemigrations = " manage.py makemigrations"
+run_bot = "python run.py"
