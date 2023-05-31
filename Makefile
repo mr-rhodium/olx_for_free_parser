@@ -1,5 +1,11 @@
 .PHONY:
-run:
+.PHONY:
+run_bot:
+	pdm run python run.py
+	
+
+.PHONY:
+runserver:
 	pdm run python manage.py runserver 5000
 
 
