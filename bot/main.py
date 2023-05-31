@@ -16,18 +16,6 @@ class BaseParser(ABC):
         pass
 
 
-# async def main():
-#     headers = {
-#         "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"
-#     }
-#     async with httpx.AsyncClient() as client:
-#         resp = await client.get(
-#             "https://www.olx.pl/api/v1/offers/?category_id=1151&city_id=17871&district_id=369&filter_enum_price=free&filter_refiners=spell_checker&limit=1&offset=10",
-#             headers=HEADERS,
-#         )
-#         print(json.loads(resp.text).get("data"))
-
-
 # TODO logging
 # import logging
 from aiogram import Dispatcher, Bot
