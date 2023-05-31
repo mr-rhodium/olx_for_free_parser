@@ -1,7 +1,7 @@
 from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
-from helper import CORE_TELEGRAM_USER
+from bot.helper import CORE_TELEGRAM_USER
 
 
 router = Router()

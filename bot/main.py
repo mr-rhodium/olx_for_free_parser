@@ -59,9 +59,9 @@ async def main():
     bot = Bot(BOT_THOKEN, parse_mode="HTML")
     dispatcher = Dispatcher()
 
-    dispatcher.startup(set_bot_command(bot=bot))
-    dispatcher.include_router()
-    dispatcher.run_polling(bot)
+    # dispatcher.startup(set_bot_command(bot))
+    # dispatcher.include_router()
+    await dispatcher.start_polling(bot)
     for item in range(1, 10):
         print(item)
         asyncio.sleep(item)

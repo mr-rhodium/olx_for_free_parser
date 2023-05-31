@@ -2,7 +2,7 @@ from django.db import models
 from .abstract import Base
 
 
-class StopWord(models.Model):
+class StopWord(Base):
     word = models.CharField(max_length=20, unique=True, verbose_name="Stop Word")
 
     def __str__(self) -> str:
