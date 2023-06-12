@@ -17,3 +17,7 @@ migrate:
 .PHONY:
 makemigrations:
 	pdm run python manage.py makemigrations
+
+.PHONY:
+shell:
+	pdm run python manage.py shell
