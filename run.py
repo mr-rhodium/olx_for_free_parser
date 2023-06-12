@@ -90,47 +90,124 @@
 #     settings.configure(DEBUG=True, INSTALLED_APPS=INSTALLED_APPS)
 #     asyncio.run(main())
 
-import logging
+# import logging
 
-from aiogram import Bot, Dispatcher
+# from aiogram import Bot, Dispatcher
+# from aiogram.types import BotCommand
+
+# from bot.settings import HEADERS, BOT_THOKEN
+# from bot.handlers import router
+
+# bot = Bot(BOT_THOKEN, parse_mode="HTML")
+
+# dispatcher = Dispatcher()
+# logging.basicConfig(level=logging.INFO)
+
+# logger = logging.getLogger(__name__)
+
+
+# def _register_routers() -> None:
+#     dispatcher.include_router(router)
+
+
+# async def _set_bot_commands() -> None:
+#     await bot.set_my_commands(
+#         [
+#             BotCommand(command="/start", description="Start bot"),
+#             BotCommand(command="/apps", description="Show installed apps"),
+#         ]
+#     )
+
+
+# @dispatcher.startup()
+# async def on_startup() -> None:
+#     # Register all routers
+#     _register_routers()
+
+#     # Set default commands
+#     await _set_bot_commands()
+
+
+# def run_polling() -> None:
+#     dispatcher.run_polling(bot)
+
+
+# if __name__ == "__main__":
+#     run_polling()
+
+
+import asyncio
+import httpx
+from bot.settings import HEADERS, BOT_THOKEN, TIME_OUT_REQUEST
+import json
+from abc import ABC, abstractmethod
+from bot.handlers import router
+from bot.olx import BulidData
+
+
+class BaseParser(ABC):
+    def clear_list(self):
+        pass
+
+    def get_stop_words(self):
+        pass
+
+    def get_data(self) -> json:
+        pass
+
+
+# TODO logging
+# import logging
+from aiogram import Dispatcher, Bot
 from aiogram.types import BotCommand
 
-from bot.settings import HEADERS, BOT_THOKEN
-from bot.handlers import router
 
-bot = Bot(BOT_THOKEN, parse_mode="HTML")
-
-dispatcher = Dispatcher()
-logging.basicConfig(level=logging.INFO)
-
-logger = logging.getLogger(__name__)
+# # TODO Add router
+# def _register_routers() -> None:
+#     # dispatcher.include_router()
+#     pass
 
 
-def _register_routers() -> None:
+# TODO send message
+async def send_message(bot: Bot, user_id: int, message: str):
+    await bot.send_message(user_id, message)
+
+
+async def cron(bot):
+    extract: BulidData = BulidData()
+    while True:
+        user_ads: dict = extract.build()
+        for user, ads in user_ads.items():
+            # await bot.send_message(chat_id=99321069, text=str(10))
+            for ad in ads:
+                # TODO  need add function for fotmatted ad
+                await bot.send_message(chat_id=user.chat_id, text="ads")
+                # TODO add user or chat_id and  set expire time
+                # await bot.send_message(chat_id=user.chat_id, text=user.text)
+        await asyncio.sleep(TIME_OUT_REQUEST)
+
+
+async def main():
+    bot = Bot(BOT_THOKEN, parse_mode="HTML")
+    dispatcher = Dispatcher()
+
+    @dispatcher.startup()
+    async def on_startup() -> None:
+        await bot.set_my_commands(
+            [
+                BotCommand(command="/start", description="Start bot"),
+                BotCommand(command="/on", description="Parser On"),
+                BotCommand(command="/off", description="Parse Off"),
+            ]
+        )
+
+    # await dispatcher.startup(set_bot_command())
     dispatcher.include_router(router)
 
+    await cron(bot=bot)
 
-async def _set_bot_commands() -> None:
-    await bot.set_my_commands(
-        [
-            BotCommand(command="/start", description="Start bot"),
-            BotCommand(command="/apps", description="Show installed apps"),
-        ]
-    )
-
-
-@dispatcher.startup()
-async def on_startup() -> None:
-    # Register all routers
-    _register_routers()
-
-    # Set default commands
-    await _set_bot_commands()
-
-
-def run_polling() -> None:
-    dispatcher.run_polling(bot)
+    await dispatcher.start_polling(bot)
 
 
 if __name__ == "__main__":
-    run_polling()
+    asyncio.run(main())
